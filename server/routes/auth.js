@@ -21,7 +21,19 @@ router.post("/", async (req, res) => {
       return res.status(401).send({ message: "Invalid Email or Password" });
 
     const token = user.generateAuthToken();
-    res.status(200).send({ data: token, message: "logged in successfully" });
+    res
+      .status(200)
+      .send({ user, data: token, message: "logged in successfully" });
+  } catch (error) {
+    res.status(500).send({ message: error });
+  }
+});
+
+router.post("/getUser", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).send({ message: error });
   }

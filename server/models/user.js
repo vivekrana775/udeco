@@ -8,6 +8,13 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  unlockedCourses: [
+    {
+      courseId: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+      unlockedLevels: [String], // Store unlocked levels (e.g., 'beginner', 'intermediate')
+      courseName: [String],
+    },
+  ],
 });
 
 userSchema.methods.generateAuthToken = function () {
