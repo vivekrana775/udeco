@@ -8,9 +8,10 @@ const Course = () => {
   const { _id, name, description, levels } = state;
   const user = JSON.parse(localStorage.getItem("user"));
   const [allUnlockedCourses, setAllUnlockedCourses] = useState([]);
-  const [help, setHelp] = useState(false);
+  const [refresh, setRefresh] = useState([]);
 
   let unlockedLevels = [];
+  console.log(refresh);
 
   for (let i = 0; i < allUnlockedCourses.length; i++) {
     if (allUnlockedCourses[i]["courseName"][0] == _id) {
@@ -26,10 +27,8 @@ const Course = () => {
         level_to_unlock: item,
       }
     );
-
-    setTimeout(() => {
-      setHelp(!help);
-    }, "1000");
+    console.log(res);
+    setRefresh(res.data);
   };
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Course = () => {
       setAllUnlockedCourses(res.data);
     };
     getUnlockedCourses();
-  }, [help]);
+  }, [refresh]);
 
   return (
     <div className={styles.course_container}>

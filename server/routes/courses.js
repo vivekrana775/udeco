@@ -26,7 +26,7 @@ router.post("/unlockCourse", async (req, res) => {
         //   console.log("booliii", booli);
         unlockedCourses[i].unlockedLevels.push(level_to_unlock);
         user.save();
-        return res.status(200);
+        return res.status(200).json(unlockedCourses);
       }
     }
 
@@ -36,10 +36,8 @@ router.post("/unlockCourse", async (req, res) => {
         courseName: [course_id],
       });
     }
-
-    console.log(unlockedCourses, course_id, booli);
     user.save();
-    res.status(200);
+    res.status(200).json(unlockedCourses);
   } catch (error) {
     res.status(500).send(error);
   }
