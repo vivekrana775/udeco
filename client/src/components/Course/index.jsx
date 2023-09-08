@@ -5,13 +5,13 @@ import styles from "./styles.module.css";
 
 const Course = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { _id, name, description, levels } = state;
   const user = JSON.parse(localStorage.getItem("user"));
   const [allUnlockedCourses, setAllUnlockedCourses] = useState([]);
   const [refresh, setRefresh] = useState([]);
 
   let unlockedLevels = [];
-  console.log(refresh);
 
   for (let i = 0; i < allUnlockedCourses.length; i++) {
     if (allUnlockedCourses[i]["courseName"][0] == _id) {
@@ -27,8 +27,11 @@ const Course = () => {
         level_to_unlock: item,
       }
     );
-    console.log(res);
     setRefresh(res.data);
+  };
+
+  const navigateToCourse = (level) => {
+    navigate("/level", { state: level });
   };
 
   useEffect(() => {
@@ -47,16 +50,24 @@ const Course = () => {
 
   return (
     <div className={styles.course_container}>
+      Hello this is {name} course and you've to unlock the courses to begin.
       <div>
         {levels?.map((item) => (
           <div className={styles.course_level} key={item}>
             <div>{item}</div>
-            {!unlockedLevels.find((type) => type == item) && (
+            {!unlockedLevels.find((type) => type == item) ? (
               <div
                 className="btn btn-danger"
                 onClick={() => handleUnlock(item)}
               >
                 unlock
+              </div>
+            ) : (
+              <div
+                className="btn btn-success"
+                onClick={() => navigateToCourse(item)}
+              >
+                Go to course
               </div>
             )}
           </div>

@@ -3,7 +3,7 @@ import Main from "./components/Main";
 import Signup from "./components/Singup";
 import Login from "./components/Login";
 import Course from "./components/Course";
-
+import Levels from "./components/Levels";
 function App() {
   const user = localStorage.getItem("token");
 
@@ -14,6 +14,7 @@ function App() {
       <Route path="/login" exact element={<Login />} />
       <Route path="/" element={<Navigate replace to="/login" />} />
       <Route path="/course" exact element={<Course />} />
+      <Route path="/level" exact element={<Levels />} />
     </Routes>
   );
 }

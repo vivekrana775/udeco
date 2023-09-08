@@ -1,0 +1,9 @@
+.level_container{
+    height: 90vh;
+    width: 95vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(5, 111, 76);
+    
+}
